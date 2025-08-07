@@ -1,0 +1,36 @@
+# Llama 3 - Meta's latest general-purpose language model
+# RAM requerida: 8GB mínimo, 16GB recomendado
+# Tamaño del modelo: ~4.7GB
+# Uso: docker compose -f docker-compose-llama3.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-models
+    restart: unless-stopped
+    ports:
+      - "11434:11434"  # Puerto de la API de Ollama
+    volumes:
+      - ollama_data:/root/.ollama  # Persistencia del modelo
+    environment:
+      - OLLAMA_MODEL=llama3
+      - OLLAMA_KEEP_ALIVE=24h  # Mantener modelo en memoria
+    # entrypoint: >
+    #   /bin/sh -c "
+    #     echo 'Descargando Llama 3...' &&
+    #     ollama pull llama3 &&
+    #     echo 'Iniciando servidor Ollama...' &&
+    #     ollama serve
+    #   "
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 60s
+
+volumes:
+  ollama_data:
+    driver: local

@@ -1,0 +1,28 @@
+# WizardLM - Optimized model for following instructions
+# RAM requerida: 8GB mínimo, 16GB recomendado
+# Tamaño del modelo: ~4.1GB
+# Uso: docker compose -f docker-compose-wizardlm.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-models
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=wizardlm
+    # entrypoint: >
+    #   /bin/sh -c "ollama pull wizardlm && exec ollama serve"
+    # Puedes probar esto si quieres ejecutar el docker compose directamente, no usar manage.sh
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+    #   interval: 1m30s
+    #   timeout: 30s
+    #   retries: 5
+    #   start_period: 30s
+volumes:
+  ollama_data:

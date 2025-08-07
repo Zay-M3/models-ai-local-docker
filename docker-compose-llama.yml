@@ -1,0 +1,21 @@
+# Llama - Meta's original language model
+# RAM requerida: 8GB mínimo, 16GB recomendado
+# Tamaño del modelo: ~4.0GB
+# Uso: docker compose -f docker-compose-llama.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-llama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=llama
+    # entrypoint: >
+    #   /bin/sh -c "ollama pull llama && exec ollama serve"
+volumes:
+  ollama_data:

@@ -1,0 +1,38 @@
+# Code Llama - Specialized model for programming tasks
+# RAM requerida: 8GB mínimo, 16GB recomendado
+# Tamaño del modelo: ~3.8GB
+# Uso: docker compose -f docker-compose-codellama.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-codellama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"  # Puerto de la API de Ollama
+    volumes:
+      - ollama_data:/root/.ollama  # Persistencia del modelo
+    environment:
+      - OLLAMA_MODEL=codellama
+      - OLLAMA_KEEP_ALIVE=24h  # Mantener modelo en memoria
+    # entrypoint: >
+    #   /bin/sh -c "
+    #     echo 'Descargando Code Llama...' &&
+    #     ollama pull codellama &&
+    #     echo 'Iniciando servidor Ollama...' &&
+    #     exec ollama serve
+    #   "
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 60s
+    # Puedes probar esto si quieres ejecutar el docker compose directamente, no usar manage.sh
+    # el healthcheck no es necesario porque el modelo se descarga al iniciar el contenedor
+
+volumes:
+  ollama_data:
+    driver: local

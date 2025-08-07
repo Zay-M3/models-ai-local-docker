@@ -1,0 +1,25 @@
+# GPT OSS 20B - Open source GPT model 20 billion parameters
+# RAM requerida: 16GB mínimo, 32GB recomendado
+# Tamaño del modelo: ~20GB
+# Uso: docker compose -f docker-compose-gpt-oss-20b.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434" 
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=gpt-oss:20b
+    # entrypoint: >
+    #   /bin/sh -c "
+    #       ollama pull gpt-oss:20b && ollama serve
+    #     "
+    # you can try this if you want to run the model directly
+volumes:
+  ollama_data:
+  

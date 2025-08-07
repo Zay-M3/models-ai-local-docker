@@ -1,0 +1,21 @@
+# Gemma - Google's lightweight language model
+# RAM requerida: 6GB mínimo, 8GB recomendado
+# Tamaño del modelo: ~2.7GB
+# Uso: docker compose -f docker-compose-gemma.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-gemma
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=gemma
+    # entrypoint: >
+    #   /bin/sh -c "ollama pull gemma && exec ollama serve"
+volumes:
+  ollama_data:

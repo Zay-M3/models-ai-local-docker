@@ -1,0 +1,21 @@
+# GPT OSS 120B - Open source GPT model 120 billion parameters
+# RAM requerida: 64GB mínimo, 128GB recomendado
+# Tamaño del modelo: ~120GB
+# Uso: docker compose -f docker-compose-gpt-oss-120b.yml up -d
+
+version: '3.9'
+
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434" 
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=llama-120b
+    # entrypoint: >
+    #   /bin/sh -c "ollama pull gpt-oss:120b && 
+    #               ollama serve --model gpt-oss:120b --port 11434"

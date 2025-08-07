@@ -1,0 +1,23 @@
+# Llama 2 - Meta's stable general-purpose language model
+# RAM requerida: 8GB mínimo, 16GB recomendado
+# Tamaño del modelo: ~3.8GB
+# Uso: docker compose -f docker-compose-llama2.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-llama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=llama2
+    # entrypoint: >
+    #   /bin/sh -c "ollama pull llama2 && exec ollama serve"
+    # Puedes probar esto si quieres ejecutar el docker compose directamente, no usar manage.sh
+    # el healthcheck no es necesario porque el modelo se descarga al iniciar el contenedor
+volumes:
+  ollama_data:

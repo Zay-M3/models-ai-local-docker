@@ -1,0 +1,38 @@
+# Mistral 7B - European high-performance language model
+# RAM requerida: 8GB mínimo, 12GB recomendado
+# Tamaño del modelo: ~4.1GB
+# Especialidad: Rápido y eficiente, bueno para tareas generales
+# Uso: docker compose -f docker-compose-mistral.yml up -d
+
+version: '3.9'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama-models
+    restart: unless-stopped
+    ports:
+      - "11434:11434"  # Puerto de la API de Ollama
+    volumes:
+      - ollama_data:/root/.ollama  # Persistencia del modelo
+    environment:
+      - OLLAMA_MODEL=mistral
+      - OLLAMA_KEEP_ALIVE=24h  # Mantener modelo en 
+    # entrypoint: >
+    #   /bin/sh -c "
+    #     echo 'Descargando Mistral 7B...' &&
+    #     ollama pull mistral &&
+    #     echo 'Iniciando servidor Ollama...' &&
+    #     exec ollama serve
+    #   "
+    # Puedes probar esto si quieres ejecutar el docker compose directamente, no usar manage.sh
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 60s
+
+volumes:
+  ollama_data:
+    driver: local
