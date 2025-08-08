@@ -4,6 +4,8 @@
 
 Esto es básicamente un conjunto de scripts y archivos Docker Compose para correr modelos como LLaMA, CodeLlama, Mistral, Gemma y WizardLM, de forma local, sin complicarse mucho. Nada de cosas mágicas, solo containers.
 
+<img alt="image" src="/banner.png" />
+
 ---
 
 ## Requisitos
