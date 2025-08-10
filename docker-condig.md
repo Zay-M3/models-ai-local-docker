@@ -48,12 +48,6 @@ deploy:
 
 ---
 
-### Uso recomendado
-
-Guarda este bloque como plantilla y agrégalo a cada servicio de modelo cuando necesites:
-
-* Afinar la experiencia de carga o rendimiento
-* Proteger tu sistema de consumo excesivo
 * Trabajar con modelos grandes o de respuesta lenta
 
 Puedes mantener este archivo como referencia para personalizar futuros modelos en el proyecto.
